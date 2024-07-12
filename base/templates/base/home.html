@@ -1,0 +1,130 @@
+{% extends "index.html" %}{% load static %} {% block content %}
+<div class="container">
+  {% load custom_tags %}
+  <div>
+    <div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            style="height: 615px"
+            src="{% static 'images/portfolio-1.jpg' %}"
+            class="d-block mw-100 mh-75 rounded"
+            alt="..."
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            style="height: 615px"
+            src="{% static 'images/portfolio-2.png' %}"
+            class="d-block mw-100 mh-75 rounded"
+            alt="..."
+          />
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev fs-1 btn-dark"
+        type="button"
+        data-bs-target="#carouselExample"
+        data-bs-slide="prev"
+      >
+        <span
+          style="
+            background-color: black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+          "
+          class="carousel-control-prev-icon"
+          aria-hidden="true"
+        ></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next fs-1"
+        type="button"
+        data-bs-target="#carouselExample"
+        data-bs-slide="next"
+      >
+        <span
+          class="carousel-control-next-icon"
+          style="
+            background-color: black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+          "
+          aria-hidden="true"
+        ></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+  <div class="container row p-5">
+    {% for blog in blogs %}
+    <div class="card col m-2" style="width: 18rem">
+      <img src="{{blog.image.url}}" class="card-img-top" />
+      <div class="card-body">
+        <h5 class="card-title">{{blog.title}}</h5>
+        <p class="card-text">{{blog.body|truncatewords:20}}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <img src="{{bio.image.url}}" class="rounded img-fluid img-me" />
+      </div>
+      <div class="col">
+        <h1 class="text-center">Ben Kimim ?</h1>
+        <p class="text-start">
+          Ben <strong>{{bio.name}} {{bio.surname}}</strong>,
+        </p>
+        <p>{{bio.bio}}</p>
+        <h2 class="text-start">Neler Yapıyorum?</h2>
+        {% for tech in techs %}
+        <ul>
+          <li>{{tech}}</li>
+        </ul>
+        {% endfor %}
+        <div class="flex">
+          <a href='{% url "ben" %}'
+            ><button class="btn btn-primary p-2">Ben Kimim?</button></a
+          >
+          <a class="" href='{% url "portfolio" %}'
+            ><button class="btn btn-primary ms-5 p-2">Projelerim</button></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div><h1>Bana Ulaş</h1></div>
+    <div class="m-3 p-3">
+      <div>
+        <i class="fa-solid fa-envelope"></i>
+        <a href="#" class="text-decoration-none">: {{bio.email}}</a>
+      </div>
+      <div>
+        <i class="fa-solid fa-phone"></i>
+        <a href="#" class="text-decoration-none">: {{bio.phone}}</a>
+      </div>
+      <div>
+        <i class="fa-brands fa-linkedin"></i>
+        <a href="#" class="text-decoration-none">: {{bio.linkedin}}</a>
+      </div>
+      <div>
+        <i class="fa-brands fa-github"></i>
+        <a href="#" class="text-decoration-none">: {{bio.github}}</a>
+      </div>
+      <div class="m-5">
+        <a href='{% url "contact" %}'
+          ><button class="btn btn-primary p-2">Bana Ulaş</button></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
