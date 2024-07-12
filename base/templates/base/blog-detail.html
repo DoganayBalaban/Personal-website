@@ -1,1 +1,28 @@
-{{blogs.body|safe}}
+{% extends "index.html" %}{% block content %}
+<div class="container">
+  <div class="p-2 m-2">
+    <h1 class="m-5">{{blogs.title}}</h1>
+    <div class="text-center mb-5">
+      <img src="{{blogs.image.url}}" />
+    </div>
+    <p class="text-start">{{blogs.body|safe}}</p>
+  </div>
+  <div>
+    <h2>Bunlara da bakabilirsin</h2>
+    <div class="container row p-5">
+      {% for blog in allBlog %}
+      <div class="card col m-2" style="width: 18rem">
+        <img src="{{blog.image.url}}" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">{{blog.title}}</h5>
+          <p class="card-text">{{blog.body|truncatewords:20}}</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+
+  {% endblock content %}
+</div>

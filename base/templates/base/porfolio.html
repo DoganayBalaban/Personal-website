@@ -1,0 +1,52 @@
+{% extends "index.html" %} {% block content %}
+<div class="container">
+  <div class="mb-3 w-50">
+    <form method="GET" action="">
+      <label class="form-label">Proje Ara</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleFormControlInput1"
+        placeholder="Proje Ara..."
+        name="q"
+      />
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {% for project in projects %}
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img
+              src="{{project.image.url}}"
+              class="img-fluid rounded-start mw-100 object-fit-fill"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{project.title}}</h5>
+              <p class="card-text">{{project.miniDesc}}</p>
+              <p class="card-text">
+                <strong>Kullanılan teknolojiler: </strong>
+                {% for tech in project.technologies.all %} {{ tech.name }}
+                {%endfor %}
+              </p>
+
+              <p class="card-text">
+                Eklenme Tarihi:
+                <small class="text-body-secondary"
+                  >{{project.created_at|timesince}} önce</small
+                >
+              </p>
+              <a href="#" class="btn btn-primary">Git</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

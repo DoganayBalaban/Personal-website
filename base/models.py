@@ -41,8 +41,9 @@ class Blog(models.Model):
 
 class Project(models.Model):
      title = models.CharField(max_length=100)
+     miniDesc = models.TextField()
      description = models.TextField()
-     technologies = models.ForeignKey(Technologies,on_delete=models.SET_NULL,null = True)
+     technologies = models.ManyToManyField(Technologies,null = True,default="N/A")
      image = models.ImageField(upload_to='images/')
      url = models.URLField(max_length=100)
      created_at = models.DateTimeField(auto_now_add=True)
