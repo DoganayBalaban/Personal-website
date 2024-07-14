@@ -1,12 +1,24 @@
 {% extends "index.html" %}{% block content %}
 
 <div class="container">
-  <div>
-    <h1>{{project.title}}</h1>
-    <small>{{project.miniDesc}}</small>
-    <p>{{project.description|safe}}</p>
-  </div>
   <div class="container">
+    <div>
+      <h1>{{project.title}}</h1>
+      <small>{{project.miniDesc}}</small>
+    </div>
+    <div class="mt-5 mb-5 p-5">
+      <p>{{project.description|safe}}</p>
+      <p class="btn btn-primary">
+        <a
+          class="text-white text-decoration-none"
+          href="{{project.url}}"
+          target="_blank"
+          >Projeye Git</a
+        >
+      </p>
+    </div>
+  </div>
+  <div class="container mt-5 mb-5 p-5">
     <h2>Galeri</h2>
     <div id="carouselExample" class="carousel slide">
       <div class="carousel-inner">
@@ -59,16 +71,16 @@
       </button>
     </div>
   </div>
-  <div class="container">
-    <div class="mt-5">
+  <div class="container mt-5 mb-5 p-5">
+    <div class="">
       <h2>Hangi Teknolojileri Kullandım?</h2>
     </div>
     <div>
-      {% for tech in project.technologies.all %}
-      <ul>
-        <li>{{ tech.name }}</li>
+      <ul class="list-group list-group-flush">
+        {% for tech in project.technologies.all %}
+        <li class="list-group-item">{{tech.name}}</li>
+        {% endfor %}
       </ul>
-      {% endfor %}
     </div>
   </div>
 </div>
