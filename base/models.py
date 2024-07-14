@@ -44,7 +44,15 @@ class Project(models.Model):
      miniDesc = models.TextField()
      description = models.TextField()
      technologies = models.ManyToManyField(Technologies,null = True,default="N/A")
-     image = models.ImageField(upload_to='images/')
      url = models.URLField(max_length=100)
      created_at = models.DateTimeField(auto_now_add=True)
      updated_at = models.DateTimeField(auto_now=True)
+    
+class ProjectImages(models.Model):
+     project = models.ForeignKey(Project,related_name="images",on_delete=models.CASCADE)
+     image = models.ImageField(upload_to='images/')
+     created_at = models.DateTimeField(auto_now_add=True)
+     updated_at = models.DateTimeField(auto_now=True)
+
+     def __str__(self):
+        return f"{self.project.title} Image"

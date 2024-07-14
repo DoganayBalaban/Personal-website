@@ -18,29 +18,39 @@
       <div class="card mb-3">
         <div class="row g-0">
           <div class="col-md-4">
+            {% if project.images.first %}
             <img
-              src="{{project.image.url}}"
+              src="{{ project.images.first.image.url }}"
               class="img-fluid rounded-start mw-100 object-fit-fill"
               alt="..."
             />
+            {% else %}
+            <img
+              src="path/to/default/image.jpg"
+              class="img-fluid rounded-start mw-100 object-fit-fill"
+              alt="..."
+            />
+            {% endif %}
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{project.title}}</h5>
-              <p class="card-text">{{project.miniDesc}}</p>
+              <h5 class="card-title">{{ project.title }}</h5>
+              <p class="card-text">{{ project.miniDesc }}</p>
               <p class="card-text">
                 <strong>Kullanılan teknolojiler: </strong>
-                {% for tech in project.technologies.all %} {{ tech.name }}
-                {%endfor %}
+                {% for tech in project.technologies.all %} {{ tech.name }}{% endfor %}
               </p>
-
               <p class="card-text">
                 Eklenme Tarihi:
                 <small class="text-body-secondary"
-                  >{{project.created_at|timesince}} önce</small
+                  >{{ project.created_at|timesince }} önce</small
                 >
               </p>
-              <a href="#" class="btn btn-primary">Git</a>
+              <a
+                href="{% url 'portfolio-detail' project.id %}"
+                class="btn btn-primary"
+                >Git</a
+              >
             </div>
           </div>
         </div>

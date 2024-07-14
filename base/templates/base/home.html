@@ -4,22 +4,16 @@
   <div>
     <div id="carouselExample" class="carousel slide">
       <div class="carousel-inner">
+        {% for projectImage in projectImages %}
         <div class="carousel-item active">
           <img
             style="height: 615px"
-            src="{% static 'images/portfolio-1.jpg' %}"
+            src="{{projectImage.image.url}}"
             class="d-block mw-100 mh-75 rounded"
             alt="..."
           />
         </div>
-        <div class="carousel-item">
-          <img
-            style="height: 615px"
-            src="{% static 'images/portfolio-2.png' %}"
-            class="d-block mw-100 mh-75 rounded"
-            alt="..."
-          />
-        </div>
+        {% endfor %}
       </div>
       <button
         class="carousel-control-prev fs-1 btn-dark"

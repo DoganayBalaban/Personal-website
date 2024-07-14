@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Bio,Blog,Technologies,Topic,Project
+from .models import Bio,Blog,Technologies,Topic,Project,ProjectImages
 from django.db.models import Q
 
 # Create your views here.
@@ -8,10 +8,12 @@ def homeView(request):
     bio = Bio.objects.first()
     blogs = Blog.objects.all()[:3]
     techs = Technologies.objects.all()[2:]
+    projectImages = ProjectImages.objects.all()
     context = {
         'bio':bio,
         'blogs':blogs,
-        'techs':techs
+        'techs':techs,
+        'projectImages':projectImages,
     
     }
     return render(request,'base/home.html',context)
@@ -49,10 +51,20 @@ def portfolioView(request):
     technologies = Technologies.objects.all()
     context = {
         'projects':projects,
-        'technologies':technologies
+        'technologies':technologies,
     }
     return render(request,"base/porfolio.html",context)
 
+def portfolioDetailView(request,id):
+    project = Project.objects.get(id=id)
+    technologies = Technologies.objects.all()
+    images = ProjectImages.objects.filter(project=project)
+    context = {
+        'project':project,
+        'technologies':technologies,
+        'images':images
+    }
+    return render(request,"base/portfolio-detail.html",context)
 
 def meView(request):
     return HttpResponse("Ben Kimim")

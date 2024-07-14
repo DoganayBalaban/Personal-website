@@ -1,0 +1,76 @@
+{% extends "index.html" %}{% block content %}
+
+<div class="container">
+  <div>
+    <h1>{{project.title}}</h1>
+    <small>{{project.miniDesc}}</small>
+    <p>{{project.description|safe}}</p>
+  </div>
+  <div class="container">
+    <h2>Galeri</h2>
+    <div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        {% for image in images %}
+        <div class="carousel-item active">
+          <img
+            style="height: 615px"
+            src="{{image.image.url}}"
+            class="d-block mw-100 mh-75 rounded"
+            alt="..."
+          />
+        </div>
+        {% endfor %}
+      </div>
+      <button
+        class="carousel-control-prev fs-1 btn-dark"
+        type="button"
+        data-bs-target="#carouselExample"
+        data-bs-slide="prev"
+      >
+        <span
+          style="
+            background-color: black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+          "
+          class="carousel-control-prev-icon"
+          aria-hidden="true"
+        ></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next fs-1"
+        type="button"
+        data-bs-target="#carouselExample"
+        data-bs-slide="next"
+      >
+        <span
+          class="carousel-control-next-icon"
+          style="
+            background-color: black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+          "
+          aria-hidden="true"
+        ></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="mt-5">
+      <h2>Hangi Teknolojileri Kullandım?</h2>
+    </div>
+    <div>
+      {% for tech in project.technologies.all %}
+      <ul>
+        <li>{{ tech.name }}</li>
+      </ul>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
