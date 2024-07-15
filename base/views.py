@@ -67,7 +67,8 @@ def portfolioDetailView(request,id):
     return render(request,"base/portfolio-detail.html",context)
 
 def meView(request):
-    return HttpResponse("Ben Kimim")
+    context = {}
+    return render(request,"base/aboutme.html",context)
 
 def contactView(request):
     return HttpResponse("Bana Ulaş")
