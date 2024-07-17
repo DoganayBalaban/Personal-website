@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.core.mail import send_mail,BadHeaderError
 from django.http import HttpResponse
-from .models import Bio,Blog,Technologies,Topic,Project,ProjectImages
+from .models import Bio,Blog,Technologies,Topic,Project,ProjectImages,Contact
 from django.db.models import Q
 
 # Create your views here.
@@ -35,7 +36,7 @@ def blogsView(request):
 
 def blogDetailView(request,id):
     blogs = Blog.objects.get(id=id)
-    allBlog = Blog.objects.all();
+    allBlog = Blog.objects.all()
     context = {
         "blogs":blogs,
         "allBlog":allBlog
@@ -47,7 +48,7 @@ def portfolioView(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ""
     projects = Project.objects.filter(
         Q(title__icontains=q) |
-        Q(technologies__name__icontains=q)).distinct()
+        Q(technologies__name__icontains=q)).distinct().order_by("-created_at")
     technologies = Technologies.objects.all()
     context = {
         'projects':projects,
@@ -67,8 +68,31 @@ def portfolioDetailView(request,id):
     return render(request,"base/portfolio-detail.html",context)
 
 def meView(request):
-    context = {}
+    bio = Bio.objects.first()
+    projects = Project.objects.all().order_by("-created_at")
+    context = {
+        'bio':bio,
+        'projects':projects
+    }
     return render(request,"base/aboutme.html",context)
 
 def contactView(request):
-    return HttpResponse("Bana Ulaş")
+    bio=Bio.objects.first()
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        surname = request.POST.get('surname')
+        from_email = request.POST.get('email')
+        message = request.POST.get('message')
+        Contact.objects.create(name=name,email=from_email,surname=surname,message=message)
+        if name and message and from_email:
+             try:
+                send_mail(name, message, from_email, ["balabandoganay@gmail.com"])
+             except BadHeaderError:
+                return HttpResponse("Invalid header found.")
+        
+        return redirect('contact')
+
+    context = {
+        'bio':bio
+    }
+    return render(request,'base/contact.html',context)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Bio,Blog,Technologies,Topic,Project,ProjectImages
+from .models import Bio,Blog,Technologies,Topic,Project,ProjectImages,Contact
 from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
@@ -14,3 +14,4 @@ admin.site.register(Technologies)
 admin.site.register(Topic)
 admin.site.register(Project,ProjectAdmin)
 admin.site.register(ProjectImages)
+admin.site.register(Contact)
