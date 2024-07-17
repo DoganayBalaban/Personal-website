@@ -23,7 +23,7 @@
     <div id="carouselExample" class="carousel slide">
       <div class="carousel-inner">
         {% for image in images %}
-        <div class="carousel-item active">
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
           <img
             style="height: 615px"
             src="{{image.image.url}}"

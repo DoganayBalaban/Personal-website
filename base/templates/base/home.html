@@ -5,7 +5,7 @@
     <div id="carouselExample" class="carousel slide">
       <div class="carousel-inner">
         {% for projectImage in projectImages %}
-        <div class="carousel-item active">
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
           <img
             style="height: 615px"
             src="{{projectImage.image.url}}"
@@ -55,12 +55,12 @@
   </div>
   <div class="container row p-5">
     {% for blog in blogs %}
-    <div class="card col m-2" style="width: 18rem">
+    <div class="card col-md m-2" style="width: 18rem">
       <img src="{{blog.image.url}}" class="card-img-top" />
       <div class="card-body">
         <h5 class="card-title">{{blog.title}}</h5>
-        <p class="card-text">{{blog.body|truncatewords:20}}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p class="card-text">{{blog.body|truncatewords:10|safe}}</p>
+        <a href="{% url 'blog-detail' blog.id%}" class="btn btn-primary">Git</a>
       </div>
     </div>
 
@@ -99,7 +99,12 @@
     <div class="m-3 p-3">
       <div>
         <i class="fa-solid fa-envelope"></i>
-        <a href="#" class="text-decoration-none">: {{bio.email}}</a>
+        <a
+          href="mailto:balabandoganay@gmail.com"
+          target="_blank"
+          class="text-decoration-none"
+          >: {{bio.email}}</a
+        >
       </div>
       <div>
         <i class="fa-solid fa-phone"></i>
@@ -107,11 +112,15 @@
       </div>
       <div>
         <i class="fa-brands fa-linkedin"></i>
-        <a href="#" class="text-decoration-none">: {{bio.linkedin}}</a>
+        <a href="{{bio.linkedin}}" target="_blank" class="text-decoration-none"
+          >: {{bio.linkedin}}</a
+        >
       </div>
       <div>
         <i class="fa-brands fa-github"></i>
-        <a href="#" class="text-decoration-none">: {{bio.github}}</a>
+        <a href="{{bio.github}}" target="_blank" class="text-decoration-none"
+          >: {{bio.github}}</a
+        >
       </div>
       <div class="m-5">
         <a href='{% url "contact" %}'

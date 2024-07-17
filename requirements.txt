@@ -1,0 +1,9 @@
+asgiref==3.8.1
+bleach==6.1.0
+certifi==2024.7.4
+Django==5.0.6
+django-summernote==0.8.20.0
+pillow==10.4.0
+six==1.16.0
+sqlparse==0.5.0
+webencodings==0.5.1
